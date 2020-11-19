@@ -5,19 +5,19 @@
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-db">
-							<picker mode="date" :value="submitForm.date" :start="startDate" :end="endDate" @change="bindDateChange">
-								<view class="uni-input"><text>当前选择日期为：</text>{{submitForm.date}}</view>
+							<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+								<view class="uni-input"><text>当前选择日期为：</text>{{date}}</view>
 							</picker>
 						</view>
 					</view>
 				</view>
-				<!-- <navigator  url="../show-map/ShowMap"> -->
-					<input type="text" focus  placeholder="输入起点" @input="start_location" />
-				<!-- </navigator> -->
-				<!-- <navigator url="../show-map/ShowMap"> -->
-					<input type="text" focus  placeholder="输入终点"  @input="end_location"/>
-				<!-- </navigator>			 -->
-				<button form-type="submit" @click="confirmInfo">下单</button>
+				<navigator  url="../show-map/ShowMap">
+					<input type="text" focus  placeholder="输入起点"  />
+				</navigator>
+				<navigator url="../show-map/ShowMap">
+					<input type="text" focus  placeholder="输入终点"  />
+				</navigator>			
+			<button form-type="submit">下单</button>
 				
 			</form>
 		</view>
@@ -36,12 +36,7 @@
 		            format: true
 		        })
 		        return {
-					submitForm:{
-						slocation:'',
-						elocation:'',
-						date: currentDate
-					},
-		            
+		            date: currentDate
 		        }
 		    },
 		computed: {
@@ -133,34 +128,18 @@
 			            if (type === 'start') {
 			                year = year;
 			            } else if (type === 'end') {
-			                year = year+1;
+			                year = year;
 			            }
 			            month = month > 9 ? month : '0' + month;;
 			            day = day > 9 ? day : '0' + day;
 			            return `${year}-${month}-${day}`;
 			        },
-			bindDateChange: function(e) {
-				this.submitForm.date = e.target.value
-			},
-			start_location(e){
-				// console.log(e.detail);
-				this.submitForm.slocation=e.detail.value;
-			},
-			end_location(e){
-				// console.log(e.detail);
-				this.submitForm.elocation=e.detail.value;
-			},
-			confirmInfo(){
-				let that=this;
-				var submitForm=JSON.stringify(that.submitForm);
-				// console.log(this.submitForm);
-				uni.navigateTo({
-					url:'/pages/payment/payment?submitData='+submitForm
-				})
-				// console.log(this.submitForm.elocation)
-				// console.log(this.submitForm.slocation)
-				// console.log(this.submitForm.date)
-			}
+		bindDateChange: function(e) {
+			this.date = e.target.value
+		},
+		ShowMap(){
+			this.$router.push('/page/show-map/ShowMap');
+		}
 		}
 
 	}
