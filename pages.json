@@ -74,6 +74,15 @@
                 
             }
             
+        },
+		{
+            "path" : "pages/payment/payment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "确认支付"
+                
+            }
+            
         }
     ],
 	"tabBar": {
